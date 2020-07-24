@@ -153,7 +153,7 @@ exports.deleteevent = (req, res, next) => {
         return User.findById(req.userId);
     })
     .then(user => {
-        user.event.pull(eventId);
+        user.events.pull(eventId);
         return user.save();
         
     })
@@ -168,6 +168,30 @@ exports.deleteevent = (req, res, next) => {
         next(err);
     })
 }
+
+exports.updatepost = (req, res, next) => {
+    const eventId = req.params.eventId;
+    Register.findById(eventId)
+    .then(event => {
+        if(!event) {
+            const error = new Error ('Could not find event');
+            error.statusCode = 404;
+            throw error; //throws error to catch block
+        }
+        if(event.creator.toString() !== req.userId) {
+            const error = new Error('Not Authenticated');
+            error.statusCode = 403;
+            throw error;
+        }
+        res.status(200).json({message:'Event fetched', event: event});
+    })
+    .catch(err => {
+        if(!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    });
+};
 
 exports.userevent = (req, res, next) => {
     Register.find()
