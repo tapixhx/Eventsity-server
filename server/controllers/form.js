@@ -77,7 +77,7 @@ exports.singlepost = (req, res, next) => {
         }
         res.status(200).json({message:'Event fetched', event: event});
     })
-    .catch(errr => {
+    .catch(err => {
         if(!err.statusCode) {
             err.statusCode = 500;
         }
@@ -167,4 +167,40 @@ exports.deleteevent = (req, res, next) => {
         }
         next(err);
     })
+}
+
+exports.userevent = (req, res, next) => {
+    return User.findById(req.userId)
+    .select('events -_id')
+    .populate('events').exec(
+        err,events => {
+            res.status(201).json({message:'User event fetched', eventss : events});
+        }
+    )
+
+
+
+    // .then(user => {
+    //     if(!user) {
+    //         const error = new Error ('Could not find user!');
+    //         error.statusCode = 404;
+    //         throw error; //throws error to catch block
+    //     }
+    //     // res.status(200).json({message:'User events fetched!', user:user});
+    //     let i, userevents=[];
+    //     console.log(user.events);
+    //     for(i=user.events[0]; i<user.events.length; i++) {
+    //         Register.findById(user.events[i])
+    //         .then(event => {
+    //             res.status(200).json({message:'Fetched Events', events: event})
+    //         })
+    //     }
+    //     // res.status(200).json({message:'User events fetched!', userevents: userevents});
+    // })
+    // .catch(err => {
+    //     if(!err.statusCode) {
+    //         err.statusCode = 500;
+    //     }
+    //     next(err);
+    // });
 }

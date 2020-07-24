@@ -26,4 +26,6 @@ router.put('/updateevent/:eventId',[
 
 router.delete('/deleteevent/:eventId', formController.deleteevent);
 
+router.get('/userevents', isAuth, formController.userevent);
+
 module.exports = router;
