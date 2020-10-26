@@ -25,7 +25,7 @@ const userSchema = new schema({
     events: [
         {
             type:schema.Types.ObjectId,
-            ref: 'Events'
+            ref: 'Register'
         }
     ]
 })

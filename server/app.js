@@ -25,7 +25,15 @@ app.use((error, req, res, next) => {
     const status = error.statusCode;
     const message = error.message;
     const data = error.data;
-    res.status(status).json({message:message, data: data});
+    const userId = error.userId;
+    if(!userId) {
+        res.status(status).json({message: message, data: data});
+        console.log("11");
+    } 
+    else {
+        res.status(status).json({message: message, data: data, userId: userId});
+        console.log("22");
+    }
 });
 
 mongoose.connect(

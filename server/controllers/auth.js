@@ -41,6 +41,7 @@ exports.signup = (req, res, next) => {
             userId: result
         })
         userOtp.save();
+        console.log(userOtp);
 
         transporter.sendMail ({
             to: email,
@@ -75,6 +76,39 @@ exports.login = (req, res, next) => {
             error.statusCode(401);
             throw error;
         }
+
+        if(!user.isVerified) {
+            console.log('1233445566677787');
+            const otp = Math.floor(1000 + Math.random() * 9000).toString();
+            console.log(otp);
+
+            Otp.findOneAndRemove({ userId: user.id }, err => next(err));
+            console.log(user);
+            const userOtp = new Otp({
+                otp: otp,
+                userId: user._id
+            })
+            userOtp.save();
+
+            transporter.sendMail ({
+                to: email,
+                from: 'eventsity@india.com',
+                subject: 'Welcometo eventsity! Confirm your email',
+                html: `<h1>Thanks for signing up with Eventsity</h1>
+                        <h4>Here is your otp - ${otp}</h4>`
+            });
+
+            setTimeout(() => {
+                Otp.findByIdAndRemove(userOtp._id, err => next(err))
+            }, 200000);
+
+            console.log(user.id);
+            const error = new Error("User is not verified")
+            error.userId = user.id;
+            error.statusCode = 401;
+            throw error; 
+        }
+
         loadedUser = user;
         return bcrypt.compare(password, user.password);
     })
@@ -112,7 +146,7 @@ exports.otpVerify = (req, res, next) => {
     //     return;
     // }
 
-    console.log(userOtp);
+    // console.log(userOtp);
     
     User.findById(userId)
     .then(loggedUser => {
@@ -135,8 +169,8 @@ exports.otpVerify = (req, res, next) => {
     })
     .then(otp => {
 
-        console.log(userOtp);
-        console.log(otp.otp);
+        // console.log(userOtp);
+        // console.log(otp.otp);
 
         if (!otp) {
             const error = new Error('Otp expired!');
@@ -186,7 +220,7 @@ exports.otpResend = (req, res, next) => {
         userOtp.save();
 
         transporter.sendMail ({
-            to: email,
+            to: user.email,
             from: 'eventsity@india.com',
             subject: 'Welcometo eventsity! Confirm your email',
             html: `<h1>Thanks for signing up with Eventsity</h1>
