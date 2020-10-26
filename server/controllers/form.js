@@ -17,7 +17,7 @@ exports.getPosts = (req, res, next) => {
 }
 
 exports.register = (req, res, next) => {
-    const errors = validationResult(req);
+    const errors = valtidationResul(req);
     if(!errors.isEmpty()) {
         const error = new Error('Validation failed');
         error.statusCode = 422;

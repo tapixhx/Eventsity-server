@@ -30,4 +30,8 @@ router.post('/signup', [
 
 router.post('/login', authController.login);
 
+router.post("/otpVerify/:userId", authController.otpVerify);
+
+router.get("/otpResend/:userId", authController.otpResend);
+
 module.exports = router;

@@ -18,6 +18,10 @@ const userSchema = new schema({
         type:String,
         default: 'I am new',
     },
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
     events: [
         {
             type:schema.Types.ObjectId,
