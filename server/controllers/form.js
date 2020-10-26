@@ -194,11 +194,12 @@ exports.updatepost = (req, res, next) => {
 };
 
 exports.userevent = (req, res, next) => {
-    Register.find()
-    .populate('creator')
+    // console.log(req.userId);
+    User.findById(req.userId)
+    .populate('events')
     .then(register => {
         console.log(register);
-        res.status(200).json({message:'Fetched Events', events: register})
+        res.status(200).json({message:'Fetched Events', events: register.events})
     })
     .catch(err => {
         if(!err.statusCode) {
@@ -206,4 +207,12 @@ exports.userevent = (req, res, next) => {
         }
         next(err);
     });
+
+    // req.user
+    //     .populate('events')
+    //     .execPopulate()
+    //     .then(user => {
+    //         console.log(user.events)
+    //     })
+    //     .catch(err => console.log(err));
 }
