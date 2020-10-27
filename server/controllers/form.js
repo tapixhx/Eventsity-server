@@ -23,9 +23,14 @@ exports.register = (req, res, next) => {
         error.statusCode = 422;
         throw error;
     }
+    if(!req.file) {
+        const error = new Error('No image provided.');
+        error.statusCode = 422;
+        throw error;
+    }
 
     const ename = req.body.ename;
-    const imagePath = req.body.imagePath;
+    const imagePath = req.file.path;
     const category = req.body.category;
     const evenue = req.body.evenue;
     const description = req.body.description;
