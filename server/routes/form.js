@@ -13,7 +13,7 @@ router.get('/events', formController.getPosts);
 router.post('/register', isAuth, [
     body('ename').trim().isLength({max : 30}),
     body('evenue').trim().isLength({max : 80}),
-    body('description').trim().isLength({min : 50})
+    body('description').trim().isLength({min : 50}),
 ] , formController.register);
 
 router.get('/event/:eventId', formController.singlepost);

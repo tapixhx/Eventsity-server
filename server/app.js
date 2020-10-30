@@ -1,3 +1,5 @@
+const path = require('path');
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -11,9 +13,12 @@ const app = express();
 
 const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'images');
+        cb(null, './images');
     },
     filename: (req, file, cb) => {
+        console.log('123355655165115965951655116541014165');
+        console.log(file.originalname);
+        console.log('123355655165115965951655116541014165');
         cb(null, new Date().toISOString() + '-' + file.originalname);
     }
 });
@@ -24,6 +29,7 @@ const fileFilter = (req, file, cb) => {
         file.mimetype === 'image/jpg' || 
         file.mimetype === 'image/jpeg') {
             cb(null, true);
+            console.log('123355655165115965951655116541014165');
     }
     else {
         cb(null, false);
@@ -32,8 +38,9 @@ const fileFilter = (req, file, cb) => {
 
 app.use(bodyParser.json()); //application/json
 app.use(
-    multer({storage: fileStorage, fileFilter: fileFilter}).single('image')
+    multer({storage: fileStorage, fileFilter: fileFilter}).single('imagePath')
 );
+app.use('/images', express.static(path.join(__dirname, './images')));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -46,18 +53,17 @@ app.use('/api', formRoutes);
 app.use('/auth', userRoutes);
 
 app.use((error, req, res, next) => {
-    console.log(error);
+    // console.log(error);
     const status = error.statusCode;
     const message = error.message;
     const data = error.data;
     const userId = error.userId;
+    console.log('123355655165115965951655116541014165');
     if(!userId) {
         res.status(status).json({message: message, data: data});
-        console.log("11");
     } 
     else {
         res.status(status).json({message: message, data: data, userId: userId});
-        console.log("22");
     }
 });
 
