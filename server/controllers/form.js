@@ -17,16 +17,19 @@ exports.getPosts = (req, res, next) => {
 }
 
 exports.register = (req, res, next) => {
+    console.log('155615589156548965846548654865486548654865486548');
     const errors = validationResult(req);
     // console.log(req.body);
-    console.log('155615589156548965846548654865486548654865486548');
+    
     if(!errors.isEmpty()) {
+        // console.log('155615589156548965846548654865486548654865486548');
         const error = new Error('Validation failed');
         error.statusCode = 422;
         throw error;
     }
     if(!req.file) {
-        console.log('2514');
+        // console.log('155615589156548965846548654865486548654865486548');
+        // console.log('2514');
         const error = new Error('No image provided.');
         error.statusCode = 422;
         throw error;
@@ -39,8 +42,8 @@ exports.register = (req, res, next) => {
     const description = req.body.description;
     const date = req.body.date;
     let creator;
-    console.log(req.body);
-    console.log(req.file);
+    // console.log(req.body);
+    // console.log(req.file);
     // Create db
     const register = new Register({
         ename: ename,
@@ -70,6 +73,7 @@ exports.register = (req, res, next) => {
     })
     .catch(err => {
         if(!err.statusCode) {
+            console.log('155615589156548965846548654865486548654865486548');
             err.statusCode = 500;
         }
         next(err);
