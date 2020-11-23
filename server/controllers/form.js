@@ -17,19 +17,15 @@ exports.getPosts = (req, res, next) => {
 }
 
 exports.register = (req, res, next) => {
-    console.log('155615589156548965846548654865486548654865486548');
     const errors = validationResult(req);
     // console.log(req.body);
     
     if(!errors.isEmpty()) {
-        // console.log('155615589156548965846548654865486548654865486548');
         const error = new Error('Validation failed');
         error.statusCode = 422;
         throw error;
     }
     if(!req.file) {
-        // console.log('155615589156548965846548654865486548654865486548');
-        // console.log('2514');
         const error = new Error('No image provided.');
         error.statusCode = 422;
         throw error;
@@ -66,14 +62,13 @@ exports.register = (req, res, next) => {
     })
     .then(result => {
         res.status(201).json({
-            message:"Post created successfully",
+            message:"Event added!",
             post: register,
             creator: {_id: creator._id, name: creator.name }
         });
     })
     .catch(err => {
         if(!err.statusCode) {
-            console.log('155615589156548965846548654865486548654865486548');
             err.statusCode = 500;
         }
         next(err);

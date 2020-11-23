@@ -20,7 +20,7 @@ const fileStorage = multer.diskStorage({
         // console.log('123355655165115965951655116541014165');
         // console.log(file.originalname);
         // console.log('123355655165115965951655116541014165');
-        cb(null, 'hello' + file.originalname);
+        cb(null, new Date().toISOString().replace(/:/g, '-') + file.originalname);
     }
 });
 
