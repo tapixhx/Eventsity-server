@@ -1,0 +1,8 @@
+{
+    "env": {
+        "MONGO_USER":"tapixhx",
+        "MONGO_PASSWORD":"HadFkME0MFkkTCrN",
+        "MONGO_DEFAULT_DB":"test",
+        "MAIL_KEY":"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"
+    }
+}
