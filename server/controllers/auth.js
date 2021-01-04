@@ -10,7 +10,7 @@ const key = require('../config2');
 
 const transporter = nodemailer.createTransport(sendgridTransport({
     auth: {
-        api_key: process.env.MAIL_KEY
+        api_key: key
     }
 }));
 
