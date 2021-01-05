@@ -7,10 +7,11 @@ const sendgridTransport = require('nodemailer-sendgrid-transport');
 
 const User = require('../models/user');
 const key = require('../config2');
+const { eventNames } = require('../models/user');
 
 const transporter = nodemailer.createTransport(sendgridTransport({
     auth: {
-        api_key: key
+        api_key: process.env.MAIL_KEY
     }
 }));
 
@@ -45,9 +46,9 @@ exports.signup = (req, res, next) => {
 
         transporter.sendMail ({
             to: email,
-            from: 'eventsity@india.com',
-            subject: 'Welcometo eventsity! Confirm your email',
-            html: `<h1>Thanks for signing up with Eventsity</h1>
+            from: 'tapish818@gmail.com',
+            subject: 'Welcome to eventsity! Confirm your email',
+            html: `<h2>Thanks for signing up with Eventsity</h2>
                     <h4>Here is your otp - ${otp}</h4>`
         });
 

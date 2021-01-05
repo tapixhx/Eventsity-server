@@ -12,6 +12,7 @@
 
 /config.js
 /config2.js
+/nodemon.json
 
 # profiling files
 chrome-profiler-events*.json

@@ -3,14 +3,19 @@ const { body } = require('express-validator');
 
 const formController = require("../controllers/form");
 const isAuth = require('../middleware/is-auth')
+const Multer = require('multer');
 
 const router = express.Router();
+
+const multerStore = Multer({
+    storage: Multer.memoryStorage(),
+})
 
 // /GET /api/form
 router.get('/events', formController.getPosts);
 
 // POST /api/register
-router.post('/register', isAuth, [
+router.post('/register', isAuth, multerStore.single('imagePath'),[
     body('ename').trim().isLength({max : 30}),
     body('evenue').trim().isLength({max : 80}),
     body('description').trim().isLength({min : 50}),
