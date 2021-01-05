@@ -8,11 +8,11 @@
 /bazel-out
 
 # dependencies
-/node_modules
+node_modules
 
-/config.js
-/config2.js
-/nodemon.json
+config.js
+config2.js
+nodemon.json
 
 # profiling files
 chrome-profiler-events*.json
