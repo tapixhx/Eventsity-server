@@ -6,7 +6,6 @@ const Otp = require("../models/otp");
 const sendgridTransport = require('nodemailer-sendgrid-transport');
 
 const User = require('../models/user');
-const key = require('../config2');
 const { eventNames } = require('../models/user');
 
 const transporter = nodemailer.createTransport(sendgridTransport({
