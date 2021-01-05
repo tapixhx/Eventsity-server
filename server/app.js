@@ -91,7 +91,6 @@ mongoose.connect(
     `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-wpluf.mongodb.net/${process.env.MONGO_DEFAULT_DB}?retryWrites=true&w=majority`
 )
 .then(result =>
-    console.log('connected'),
     app.listen(process.env.PORT || 8080),   
 )
 .catch(err=>console.log(err));
